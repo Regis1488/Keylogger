@@ -7,3 +7,7 @@
 #include <boost/algorithm/string.hpp>
 #include <time.h>
 #include <fstream>
+#include <curlpp/cURLpp.hpp>
+#include <curlpp/Easy.hpp>
+#include <curlpp/Options.hpp>
+#include <filesystem>
