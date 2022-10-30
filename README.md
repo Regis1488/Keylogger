@@ -28,3 +28,4 @@ I am in no way responsible for the use of my project for malicious purposes. Thi
 ## Authors
 
 - [@Regis1488](https://www.github.com/Regis1488)
+- [@atom1488](https://www.github.com/atom1488)
