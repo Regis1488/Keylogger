@@ -156,7 +156,7 @@ bool PersistantApplication() {
 		return false;
 	}
 }
-int main()
+void main()
 {
 
 	std::thread t1;
