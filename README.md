@@ -20,3 +20,11 @@ For now it record via `GetAsyncKeyState` but I will try to hook Windows directly
 * Use MBS characters (not Unicode)
 * Put the C++17.
 * Compile.
+
+## ⚠️ Disclamer ⚠️
+
+I am in no way responsible for the use of my project for malicious purposes. This project is for Educational Purpose.
+
+## Authors
+
+- [@Regis1488](https://www.github.com/Regis1488)
