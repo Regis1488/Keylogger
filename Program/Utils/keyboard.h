@@ -1,4 +1,5 @@
 #include <iostream>
+#include <wininet.h>
 #include <Windows.h>
 #include <conio.h>
 #include <string>
@@ -8,3 +9,4 @@
 #include <time.h>
 #include <fstream>
 #include <filesystem>
+#include <dpp/dpp.h>

