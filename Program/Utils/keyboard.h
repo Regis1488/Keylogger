@@ -1,5 +1,4 @@
 #include <iostream>
-#include <wininet.h>
 #include <Windows.h>
 #include <conio.h>
 #include <string>
