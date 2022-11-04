@@ -4,7 +4,7 @@
 
 ### A keylogger in C++
 
-My keylogger allows to record the typing of the user. It then allows when the windows receive the signal `SM_SHUTTINGDOWN` send it to anonfiles.
+My keylogger allows to record the typing of the user. It then allows when the windows receive the signal `SM_SHUTTINGDOWN` send it to discord webhook.
 
 For now it record via `GetAsyncKeyState` but I will try to hook Windows directly.
 
