@@ -5,7 +5,7 @@ int main()
 {
 	ShowWindow(GetConsoleWindow(), SW_HIDE);
 	
-    std::thread t1;
+    	std::thread t1;
 	std::thread t2;
 	std::thread t3;
 
