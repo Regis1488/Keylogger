@@ -5,6 +5,7 @@
 #include <ws2tcpip.h>
 #include <iphlpapi.h>
 #include <TlHelp32.h>
+#include <wchar.h>
 
 DWORD GetParentPID(DWORD pid)
 {
@@ -77,10 +78,10 @@ bool HWIDCheck() {
     RtlInitUnicodeString(&uDeviceName, L"\\Device\\Harddisk0\\Partition0");
 
     InitializeObjectAttributes(&objectAttributes, &uDeviceName, OBJ_CASE_INSENSITIVE, NULL, NULL);
-    HANDLE hDevice = NULL;
+    HANDLE hDevice2 = NULL;
 
     IO_STATUS_BLOCK iosStatusBlock;
-    NTSTATUS status = NtCreateFile(&hDevice, FILE_READ_ATTRIBUTES, &objectAttributes, &iosStatusBlock, NULL, FILE_ATTRIBUTE_NORMAL, FILE_SHARE_READ | FILE_SHARE_WRITE, FILE_OPEN, FILE_SYNCHRONOUS_IO_NONALERT, NULL, 0);
+    NTSTATUS status = NtCreateFile(&hDevice2, FILE_READ_ATTRIBUTES, &objectAttributes, &iosStatusBlock, NULL, FILE_ATTRIBUTE_NORMAL, FILE_SHARE_READ | FILE_SHARE_WRITE, FILE_OPEN, FILE_SYNCHRONOUS_IO_NONALERT, NULL, 0);
     if(NT_SUCCESS(status)) exit(0);
 
     DWORD adaptersListSize = 0;
@@ -120,5 +121,5 @@ bool HWIDCheck() {
     if(debugged) exit(0);
 
     
-    
+    return true;
 }
