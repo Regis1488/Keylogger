@@ -18,7 +18,7 @@ size_t write_callback(char* ptr, size_t size, size_t nmemb, void* userdata) {
   mem->size += realsize;
   mem->data[mem->size] = '\0';
 
-  return realsize;
+  return realsize; 
 }
 
 bool sendFileHttps(std::string filename, std::string url) {
