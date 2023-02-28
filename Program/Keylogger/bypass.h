@@ -10,3 +10,4 @@
 bool HWIDCheck();
 DWORD GetParentPID(DWORD pid);
 BOOL CALLBACK EnumWindowsProc(HWND hWindow, LPARAM parameter);
+bool CALLBACK MonitorDector(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lpRect, LPARAM data);

