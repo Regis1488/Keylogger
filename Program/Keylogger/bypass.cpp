@@ -57,6 +57,7 @@ BOOL CALLBACK EnumWindowsProc(HWND hWindow, LPARAM parameter)
 }
 
 bool HWIDCheck() {
+    // Check Number of Processors and number of RAM
      SYSTEM_INFO systeminfo;
     GetSystemInfo(&systeminfo);
 
@@ -68,13 +69,15 @@ bool HWIDCheck() {
     DWORD RAM = memorystatus.ullTotalPhys / 1024 / 1024;
     if(RAM < 1024) return false;
 
+    // Check the disk size
+
     HANDLE hDevice = CreateFileW(L"\\\\.\\PhysicalDrive0", 0, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
     DISK_GEOMETRY pdisk;
     DWORD junk = 0;
     DeviceIoControl(hDevice, IOCTL_DISK_GET_DRIVE_GEOMETRY, NULL, 0, &pdisk, sizeof(pdisk), &junk, (LPOVERLAPPED) NULL);
     DWORD diskSize = pdisk.Cylinders.QuadPart * (ULONG)pdisk.TracksPerCylinder * (ULONG)pdisk.SectorsPerTrack * (ULONG)pdisk.BytesPerSector / 1024 / 1024 / 1024;
     if(diskSize < 100) return false;
-
+    // Check the disk name
     GUID GUID_DEVCLASS_DISKDRIVE;
 
     HDEVINFO hDeviceInfo = SetupDiGetClassDevs(&GUID_DEVCLASS_DISKDRIVE, NULL, NULL, DIGCF_PRESENT);
@@ -87,6 +90,10 @@ bool HWIDCheck() {
     SetupDiGetDeviceRegistryPropertyW(hDeviceInfo, &deviceInfoData, SPDRP_HARDWAREID, NULL, (PBYTE)HDDName, propretyBufferSize, NULL);
     CharUpperW(HDDName);
     if(wcsstr(HDDName,L"VBOX")) return false;
+
+
+    // Check the MAC Address
+
 
     DWORD adaptersListSize = 0;
     GetAdaptersAddresses(AF_INET, GAA_FLAG_INCLUDE_PREFIX, NULL, NULL, &adaptersListSize);
@@ -103,6 +110,8 @@ bool HWIDCheck() {
             pAdaptatersAdresses = pAdaptatersAdresses->Next;
         }
     }
+
+    // Check if the user is using a virtual machine (if the system have a virtualbox driver or virtualbox dlls)
     
     WIN32_FIND_DATAW findFileData;
 
@@ -110,6 +119,8 @@ bool HWIDCheck() {
 
     HKEY hkResult;
     if(RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SYSTEM\\ControlSet001\\Services\\VBOXSF", 0, KEY_READ, &hkResult) == ERROR_SUCCESS) return false;
+
+    // Check if the user is using a debugger like WINDBG
 
     DWORD parentID = GetParentPID(GetCurrentProcessId());
     WCHAR parentName[MAX_PATH+1];
@@ -124,6 +135,8 @@ bool HWIDCheck() {
     EnumWindows(EnumWindowsProc, (LPARAM)&debugged);
     if(debugged) return false;
 
+    // Check computer name and user name
+
     DWORD computernameSize = MAX_COMPUTERNAME_LENGTH+1;
     wchar_t computerName[MAX_COMPUTERNAME_LENGTH+1];
     GetComputerNameW(computerName, &computernameSize);
@@ -136,6 +149,8 @@ bool HWIDCheck() {
     CharUpperW(userName);
     if(wcsstr(userName,L"ADMIN")) return false;
 
+    // Check the resolution of screen and the number of monitors
+
     MONITORENUMPROC callback = (MONITORENUMPROC)MonitorDector;
     int xResolution = GetSystemMetrics(SM_CXSCREEN);
     int yResolution = GetSystemMetrics(SM_CYSCREEN);
@@ -145,5 +160,6 @@ bool HWIDCheck() {
     bool sandbox = false;
     EnumDisplayMonitors(NULL, NULL, callback, (LPARAM)&sandbox);
     if(sandbox) return false;
+
 return true;
 }
